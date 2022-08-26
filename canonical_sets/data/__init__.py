@@ -1,4 +1,4 @@
-"""Datasets."""
+"""Data Sets."""
 
 from canonical_sets.data.adult import Adult
 from canonical_sets.data.base import DataSet

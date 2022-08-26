@@ -12,6 +12,8 @@
 .. _canonical_sets: https://github.com/Integrated-Intelligence-Lab/canonical_sets/tree/main/canonical_sets
 .. _examples: https://github.com/Integrated-Intelligence-Lab/canonical_sets/tree/main/examples
 .. _contribute: https://github.com/Integrated-Intelligence-Lab/canonical_sets/blob/main/CONTRIBUTING.rst
+.. _documentation: https://canonical-sets.readthedocs.io/en/latest/
+.. _LUCID: https://responsibledecisionmaking.github.io/assets/pdf/papers/21.pdf
 
 .. _Twitter: https://twitter.com/DataLabBE
 .. _website: https://data.research.vub.be/
@@ -31,7 +33,8 @@ By Locating Unfairness through Canonical Inverse Design (LUCID), we generate a c
 for a model given a preferred output. The canonical set reveals the model's internal logic and exposes potential unethical
 biases by repeatedly interrogating the decision-making process. By shifting the focus towards equality of treatment and
 looking into the algorithm's internal workings, LUCID is a valuable addition to the toolbox of algorithmic fairness evaluation.
-Read our paper on LUCID for more details.
+
+Read our paper on `LUCID`_ for more details, or check out the `documentation`_.
 
 We encourage everyone to `contribute`_ to this project by submitting an issue or a pull request!
 
@@ -45,7 +48,7 @@ Install ``canonical_sets`` from PyPi.
 
     pip install canonical_sets
 
-For development install, see `contribute`_.
+For development install, see `contribute`_. You can also check the `documentation`_.
 
 
 Usage
@@ -65,8 +68,8 @@ It only requires a model, a preferred output, and an example input (which is oft
 The results are stored in a ``pd.DataFrame``, and can be accessed by calling ``results``.
 
 For detailed examples see `examples`_ and for the source code see `canonical_sets`_. We advice to start with either the
-``tensorflow`` or ``pytorch`` example, and then the advanced example. If you have any remaining questions, feel free to
-submit an issue or PR!
+``tensorflow`` or ``pytorch`` example, and then the advanced example. You can also check the `documentation`_.
+If you have any remaining questions, feel free to submit an issue or PR!
 
 
 Data
@@ -84,6 +87,7 @@ Data
     compas.train_data.head()
 
 The default settings can be customized to change the pre-processing, splitting, etc. See `examples`_  for details.
+You can also check the `documentation`_.
 
 
 Community
