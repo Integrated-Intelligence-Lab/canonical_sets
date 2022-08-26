@@ -1,0 +1,114 @@
+name: canonical sets
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      #----------------------------------------------
+      #        load pip cache if cache exists
+      #----------------------------------------------
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+          restore-keys: ${{ runner.os }}-pip
+
+      #----------------------------------------------
+      #          install and run linters
+      #----------------------------------------------
+      - name: install dependencies
+        run: python -m pip install isort black flake8 bandit mypy
+
+      - name: isort
+        run: python -m isort . -c
+
+      - name: black
+        run: python -m black . --check
+
+      - name: flake8
+        run: python -m flake8 .
+
+      - name: bandit
+        run: python -m bandit .
+
+      - name: mypy
+        run: python -m mypy canonical_sets
+
+  test:
+    needs: linting
+
+    strategy:
+      fail-fast: true
+
+      matrix:
+        os: [ "windows-latest", "ubuntu-latest", "macos-latest" ]
+        python-version: [ "3.8", "3.9" ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up python ${{ matrix.python-version }}
+        id: setup-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+
+      #----------------------------------------------
+      # install root project
+      #----------------------------------------------
+      - name: Install library
+        run: poetry install --no-interaction
+
+      #---------
+      # Testing
+      #---------
+      - name: pytest
+        run: poetry run python -m pytest --cov=canonical_sets
