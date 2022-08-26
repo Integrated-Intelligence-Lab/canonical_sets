@@ -5,7 +5,7 @@
 .. |pic3| image:: https://img.shields.io/badge/code%20style-black-000000.svg
 .. |pic4| image:: https://img.shields.io/badge/%20type_checker-mypy-%231674b1?style=flat
 .. |pic5| image:: https://img.shields.io/badge/platform-windows%20%7C%20linux%20%7C%20macos-lightgrey
-.. |pic6| image:: https://github.com/AndresAlgaba/canonical_sets/actions/workflows/testing.yml/badge.svg
+.. |pic6| image:: https://github.com/Integrated-Intelligence-Lab/canonical_sets/actions/workflows/testing.yml/badge.svg
 .. |pic7| image:: https://img.shields.io/readthedocs/canonical_sets
 .. |pic8| image:: https://img.shields.io/pypi/v/canonical_sets
 
