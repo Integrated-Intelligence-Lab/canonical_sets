@@ -53,6 +53,10 @@ jobs:
   test:
     needs: linting
 
+    defaults:
+      run:
+        shell: bash
+
     strategy:
       fail-fast: true
 
