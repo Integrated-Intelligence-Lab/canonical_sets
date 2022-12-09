@@ -1,4 +1,4 @@
-canonical\_sets.models.classifiers.ClassifierTF
+﻿canonical\_sets.models.classifiers.ClassifierTF
 ===============================================
 
 .. currentmodule:: canonical_sets.models.classifiers

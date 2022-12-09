@@ -14,7 +14,7 @@
 .. _contribute: https://github.com/Integrated-Intelligence-Lab/canonical_sets/blob/main/CONTRIBUTING.rst
 .. _documentation: https://canonical-sets.readthedocs.io/en/latest/
 .. _LUCID: https://responsibledecisionmaking.github.io/assets/pdf/papers/21.pdf
-.. _LUCIDGAN: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4289597
+.. _LUCID-GAN: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4289597
 
 .. _Twitter: https://twitter.com/DataLabBE
 .. _website: https://data.research.vub.be/
@@ -172,8 +172,7 @@ vector. Note that a part of the code and comments is identical to the original `
 Citation
 --------
 
-.. highlight:: none
-.. code-block::
+.. code-block:: none
 
     @inproceedings{mazijn_lucid_2023,
       title={{LUCID: Exposing Algorithmic Bias through Inverse Design}},
