@@ -1,4 +1,4 @@
-"""Utilities for canonical_sets."""
+"""Utilities."""
 
 import sys
 from typing import Any

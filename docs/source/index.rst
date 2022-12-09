@@ -1,6 +1,9 @@
 Canonical sets
 ==============
-Exposing Algorithmic Bias through Inverse Design.
+Canonical sets reveal a model's desired input given a preferred output.
+This information about the model's mechanisms, i.e., which feature values
+are essential to obtain specific outputs, allows us to expose potential
+unethical biases in its internal logic.
 
 .. toctree::
    :maxdepth: 1
@@ -11,11 +14,12 @@ Exposing Algorithmic Bias through Inverse Design.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Tutorials
+   :caption: Examples
 
    example_pt
    example_tf
    example_advanced
+   example_gan
    example_datasets
 
 

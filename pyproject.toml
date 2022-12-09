@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "canonical_sets"
-version = "v0.0.1"
-description = "Exposing Algorithmic Bias through Inverse Design."
+version = "v0.0.2"
+description = "Exposing Algorithmic Bias with Canonical Sets."
 license = "MIT"
 authors = [
   "Integrated Intelligence Lab",
@@ -26,6 +26,7 @@ keywords = [
   "fairness",
   "bias",
   "inverse design",
+  "generative models",
   "interpretability",
   "python"]
 packages = [
@@ -35,13 +36,14 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
 matplotlib = ">=3.5.2"
+seaborn = ">=0.12.0"
 numpy = ">=1.22.3"
 pandas = ">=1.4.2"
 torch = ">=1.11.0"
 tensorflow = ">=2.9.1"
 scikit-learn = ">=1.1.1"
 tqdm = ">=4.64.0"
-scipy = ">=1.9.0"
+ctgan = ">=0.6.0"
 
 [tool.poetry.dev-dependencies]
 jupyter = ">=1.0.0"

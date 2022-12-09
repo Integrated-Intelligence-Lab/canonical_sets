@@ -19,7 +19,7 @@ To easily install all the (dev) dependencies use `poetry`_:
      poetry install
 
 
-Some useful Make commands which can be used during development:
+Some useful ``Make`` commands which can be used during development:
 
 .. code-block::
 
@@ -38,4 +38,4 @@ Example to clean project folder:
      make clean
 
 
-Note that we adhere to the `PEP8`_ and the `numpydoc`_ style guides.
+Note that we aim to adhere to the `PEP8`_ and the `numpydoc`_ style guides.

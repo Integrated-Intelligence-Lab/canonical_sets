@@ -1,7 +1,7 @@
-canonical\_sets.inverse\_design.LUCID
-=====================================
+canonical\_sets.lucid.LUCID
+===========================
 
-.. currentmodule:: canonical_sets.inverse_design
+.. currentmodule:: canonical_sets.lucid
 
 .. autoclass:: LUCID
    :members:

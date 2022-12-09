@@ -1,7 +1,7 @@
-canonical\_sets.inverse\_design
-===============================
+canonical\_sets.lucid
+=====================
 
-.. automodule:: canonical_sets.inverse_design
+.. automodule:: canonical_sets.lucid
 
    
    

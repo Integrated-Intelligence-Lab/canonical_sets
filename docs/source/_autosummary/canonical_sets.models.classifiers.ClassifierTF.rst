@@ -44,6 +44,7 @@ canonical\_sets.models.classifiers.ClassifierTF
       ~ClassifierTF.get_output_at
       ~ClassifierTF.get_output_mask_at
       ~ClassifierTF.get_output_shape_at
+      ~ClassifierTF.get_weight_paths
       ~ClassifierTF.get_weights
       ~ClassifierTF.load_weights
       ~ClassifierTF.make_predict_function
