@@ -29,4 +29,4 @@ install:
 	poetry install
 
 docs: 
-	cd docs; make clean html; cd ..; make clean
+	cd docs; poetry run make clean html; cd ..; make clean
