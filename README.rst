@@ -14,10 +14,14 @@
 .. _contribute: https://github.com/Integrated-Intelligence-Lab/canonical_sets/blob/main/CONTRIBUTING.rst
 .. _documentation: https://canonical-sets.readthedocs.io/en/latest/
 .. _LUCID: https://responsibledecisionmaking.github.io/assets/pdf/papers/21.pdf
+.. _LUCIDGAN: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4289597
 
 .. _Twitter: https://twitter.com/DataLabBE
 .. _website: https://data.research.vub.be/
 .. _papers: https://researchportal.vub.be/en/organisations/data-analytics-laboratory/publications/
+
+.. _ctgan: https://github.com/sdv-dev/CTGAN
+.. _ctganbugs: https://github.com/sdv-dev/CTGAN/pulls/AndresAlgaba
 
 
 Canonical sets 
@@ -31,10 +35,15 @@ AI systems can create, propagate, support, and automate bias in decision-making 
 we both need to understand the origin of the bias and define what it means for an algorithm to make fair decisions.
 By Locating Unfairness through Canonical Inverse Design (LUCID), we generate a canonical set that shows the desired inputs
 for a model given a preferred output. The canonical set reveals the model's internal logic and exposes potential unethical
-biases by repeatedly interrogating the decision-making process. By shifting the focus towards equality of treatment and
-looking into the algorithm's internal workings, LUCID is a valuable addition to the toolbox of algorithmic fairness evaluation.
+biases by repeatedly interrogating the decision-making process.
 
-Read our paper on `LUCID`_ for more details, or check out the `documentation`_.
+LUCID-GAN extends on LUCID by generating canonical inputs via a conditional generative model instead of
+gradient-based inverse design. LUCID-GAN generates canonical inputs conditional on the predictions of the model under
+fairness evaluation. LUCID-GAN has several benefits, including that it applies to non-differentiable models, ensures
+that a canonical set consists of realistic inputs, and allows us to assess indirect discrimination and explicitly
+check for intersectional unfairness.
+
+Read our paper on `LUCID`_ and `LUCID-GAN`_ for more details, or check out the `documentation`_.
 
 We encourage everyone to `contribute`_ to this project by submitting an issue or a pull request!
 
@@ -53,9 +62,15 @@ For development install, see `contribute`_. You can also check the `documentatio
 
 Usage
 -----
+
+LUCID
+~~~~~
+
 ``LUCID`` can be used for the gradient-based inverse design to generate canonical sets, and is available for both
-``PyTorch`` and ``Tensorflow`` models. It's fully customizable, but can also be used out-of-the-box for a wide range of
-models by using its default settings:
+``PyTorch`` and ``Tensorflow`` models. It only requires a model, a preferred output, and an example input
+(which is often a part of the training data). The results are stored in a ``pd.DataFrame``, and can be accessed by
+calling ``results``. It's fully customizable, but can also be used out-of-the-box for a wide range of
+applications by using its default settings:
 
 .. code-block:: python
 
@@ -64,16 +79,50 @@ models by using its default settings:
     lucid = LUCID(model, outputs, example_data)
     lucid.results.head()
 
-It only requires a model, a preferred output, and an example input (which is often a part of the training data).
-The results are stored in a ``pd.DataFrame``, and can be accessed by calling ``results``.
+LUCID-GAN
+~~~~~~~~~
 
-For detailed examples see `examples`_ and for the source code see `canonical_sets`_. We advice to start with either the
-``tensorflow`` or ``pytorch`` example, and then the advanced example. You can also check the `documentation`_.
-If you have any remaining questions, feel free to submit an issue or PR!
+``LUCIDGAN`` generates canonical sets by using conditional generative models (GANs). This approach has several benefits,
+including that it applies to non--differentiable models, ensures that a canonical set consists of realistic inputs,
+and allows us to assess indirect discrimination and explicitly check for intersectional unfairness. LUCID-GAN only
+requires the input and predictions of a black-box model. It's fully customizable, but can also be used out-of-the-box
+for a wide range of applications by using its default settings:
+
+.. code-block:: python
+
+    from canonical_sets import LUCIDGAN
+
+    lucidgan = LUCIDGAN()
+    lucidgan.fit(data, predictions)
+    samples = lucidgan.sample(100)
+    samples.head()
+
+For detailed examples see `examples`_ and for the source code see `canonical_sets`_. For ``LUCID``, we advice to start with either the
+``tensorflow`` or ``pytorch`` example, and then the advanced example. For ``LUCIDGAN``, you can replicate the experiments from the paper
+with the ``GAN_adult`` and ``GAN_compas`` examples. Note that the results might slightly differ due to the randomness in generating the
+samples. You can also check the `documentation`_ for more details. If you have any remaining questions, feel free to submit an issue or PR!
+
+
+Output-based group metrics
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Most group fairness notions focus on the equality of outcome by computing statistical parity metrics on a model's output.
+The two most prominent examples of these statistical output-based metrics are Demographic Parity (DP) and Equality Of Opportunity (EOP).
+In DP, we compare the Positivity Rate (PR) of the subpopulations under fairness evaluation, and in EOP, we compare the True Positive Rate (TPR).
+The choice between DP and EOP depends on the underlying assumptions and worldview of the evaluator.
+The ``Metrics`` class allows you to compute these metrics for binary classification tasks given the predictions and ground truth:
+
+.. code-block:: python
+
+    from canonical_sets.group import Metrics
+
+    metrics = Metrics(preds, targets)
+    metrics.metrics
 
 
 Data
 ----
+
 ``canonical_sets`` contains some functionality to easily access commonly used data sets in the fairness literature:
 
 .. code-block:: python
@@ -106,21 +155,37 @@ Disclaimer
 The package and the code is provided "as-is" and there is NO WARRANTY of any kind. 
 Use it only if the content and output files make sense to you.
 
+Currently some dependencies of the package do not support the Apple M1 and M2 chips.
+We will offer support asap.
+
 
 Acknowledgements
 ----------------
 
 This project benefited from financial support from Innoviris.
 
+``LUCIDGAN`` is based on the ``CTGAN`` class from the `ctgan`_ package. It has been extended to fix
+several bugs (see my PRs on the `ctganbugs`_ GitHub page) and to allow for the extension of the conditional
+vector. Note that a part of the code and comments is identical to the original ``CTGAN`` class.
+
 
 Citation
 --------
 
+.. highlight:: none
 .. code-block::
 
-    @inproceedings{mazijn_canonicalsets_2022,
-      title={{Exposing Algorithmic Bias through Inverse Design}},
+    @inproceedings{mazijn_lucid_2023,
+      title={{LUCID: Exposing Algorithmic Bias through Inverse Design}},
       author={Mazijn, Carmen and Prunkl, Carina and Algaba, Andres and Danckaert, Jan and Ginis, Vincent},
-      booktitle={Workshop at International Conference on Machine Learning},
-      year={2022},
+      booktitle={Thirty-Seventh AAAI Conference on Artificial Intelligence (accepted)},
+      year={2023},
     }
+
+    @article{algaba_lucidgan_2022,
+      title={{LUCID-GAN: Conditional Generative Models to Locate Unfairness}},
+      author={Algaba, Andres and Mazijn, Carmen and Prunkl, Carina and Danckaert, Jan and Ginis, Vincent},
+      year={2022},
+      journal={Working paper}
+    }
+

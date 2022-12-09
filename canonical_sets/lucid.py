@@ -1,4 +1,4 @@
-"""Locating Unfairness through Canonical Inverse Design."""
+"""LUCID."""
 
 import warnings
 from typing import List, Union
@@ -30,8 +30,8 @@ class LUCID:
     results_processed: pd.DataFrame
         A dataframe with the processed canonical inputs.
 
-    Example
-    -------
+    Examples
+    --------
     >>> model = tf.keras.Model()
     >>> outputs = pd.DataFrame([[0, 1]], columns=["No", "Yes"])
     >>> example_data = train_data

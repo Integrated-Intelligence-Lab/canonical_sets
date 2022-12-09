@@ -27,7 +27,9 @@
    :recursive:
 
    canonical_sets.data
-   canonical_sets.inverse_design
+   canonical_sets.gan
+   canonical_sets.group
+   canonical_sets.lucid
    canonical_sets.models
    canonical_sets.utils
 
