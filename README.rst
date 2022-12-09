@@ -155,6 +155,9 @@ Disclaimer
 The package and the code is provided "as-is" and there is NO WARRANTY of any kind. 
 Use it only if the content and output files make sense to you.
 
+Currently some dependencies of the package do not support the Apple M1 and M2 chips.
+We will offer support asap.
+
 
 Acknowledgements
 ----------------
