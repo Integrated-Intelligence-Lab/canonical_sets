@@ -41,10 +41,10 @@ numpy = ">=1.22.3"
 pandas = ">=1.4.2"
 torch = ">=1.11.0"
 tensorflow = [
-  {version = ">=2.9.1", markers = "sys_platform != 'darwin'"},
-  {version = ">=2.9.1", markers = "sys_platform == 'darwin' and platform_machine == 'x86_64'"}
+  {version = ">=2.9.1, <2.11", markers = "sys_platform != 'darwin'"},
+  {version = ">=2.9.1, <2.11", markers = "sys_platform == 'darwin' and platform_machine == 'x86_64'"}
 ]
-tensorflow-macos = {version = ">=2.9.1", markers = "sys_platform == 'darwin' and platform_machine == 'arm64'"}
+tensorflow-macos = {version = ">=2.9.1, <2.11", markers = "sys_platform == 'darwin' and platform_machine == 'arm64'"}
 scikit-learn = ">=1.1.1"
 tqdm = ">=4.64.0"
 ctgan = ">=0.6.0"

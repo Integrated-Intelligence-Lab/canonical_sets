@@ -21,7 +21,7 @@
 .. _papers: https://researchportal.vub.be/en/organisations/data-analytics-laboratory/publications/
 
 .. _ctgan: https://github.com/sdv-dev/CTGAN
-.. _ctganbugs: https://github.com/sdv-dev/CTGAN/pulls/AndresAlgaba
+.. _PR: https://github.com/sdv-dev/CTGAN/pulls/AndresAlgaba
 
 
 Canonical sets 
@@ -167,7 +167,7 @@ Acknowledgements
 This project benefited from financial support from Innoviris.
 
 ``LUCIDGAN`` is based on the ``CTGAN`` class from the `ctgan`_ package. It has been extended to fix
-several bugs (see my PRs on the `ctganbugs`_ GitHub page) and to allow for the extension of the conditional
+several bugs (see my `PR`_s on the `CTGAN`_ GitHub page) and to allow for the extension of the conditional
 vector. Note that a part of the code and comments is identical to the original ``CTGAN`` class.
 
 
