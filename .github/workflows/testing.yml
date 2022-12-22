@@ -99,25 +99,21 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-      # #----------------------------------------------
-      # # install dependencies if cache does not exist
-      # #----------------------------------------------
-      # - name: Install dependencies
-      #   if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      #   run: poetry install --no-interaction --no-root
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
 
-      # #----------------------------------------------
-      # # install root project
-      # #----------------------------------------------
-      # - name: Install library
-      #   run: poetry install --no-interaction
+      #----------------------------------------------
+      # install root project
+      #----------------------------------------------
+      - name: Install library
+        run: poetry install --no-interaction
 
-      # test
-      - name: piplist
-        run: poetry run python -c "import os, sys, platform; print(os.name, sys.platform, platform.machine(), platform.processor())"
-
-      # #---------
-      # # Testing
-      # #---------
-      # - name: pytest
-      #   run: poetry run python -m pytest --cov=canonical_sets
+      #---------
+      # Testing
+      #---------
+      - name: pytest
+        run: poetry run python -m pytest --cov=canonical_sets
