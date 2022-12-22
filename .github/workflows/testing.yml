@@ -112,10 +112,6 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
 
-      # test
-      - name: piplist
-        run: poetry run pip list
-
       #---------
       # Testing
       #---------
