@@ -37,7 +37,7 @@ packages = [
 python = ">=3.8,<3.10"
 matplotlib = ">=3.5.2"
 seaborn = ">=0.12.0"
-numpy = ">=1.22.3"
+numpy = ">=1.22"
 pandas = ">=1.4.2"
 torch = ">=1.11.0"
 tensorflow = [
@@ -47,8 +47,9 @@ tensorflow = [
 tensorflow-macos = {version = ">=2.9.1, <2.11", markers = "sys_platform == 'darwin' and platform_machine == 'arm64'"}
 scikit-learn = ">=1.1.1"
 tqdm = ">=4.64.0"
-ctgan = ">=0.6.0"
-scipy = ">=1.7.3"
+rdt = {git = "https://github.com/AndresAlgaba/RDT"}
+ctgan = {git = "https://github.com/AndresAlgaba/CTGAN"}
+scipy = ">=1.9.0"
 
 [tool.poetry.dev-dependencies]
 jupyter = ">=1.0.0"
