@@ -80,6 +80,7 @@ applications by using its default settings:
     lucid = LUCID(model, outputs, example_data)
     lucid.results.head()
 
+
 LUCID-GAN
 ~~~~~~~~~
 
