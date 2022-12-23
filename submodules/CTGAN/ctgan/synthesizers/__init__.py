@@ -2,7 +2,7 @@
 
 from ctgan.synthesizers.ctgan import CTGAN
 
-__all__ = ("CTGAN")
+__all__ = "CTGAN"
 
 
 def get_all_synthesizers():

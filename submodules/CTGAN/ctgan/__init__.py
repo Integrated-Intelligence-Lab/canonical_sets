@@ -8,4 +8,4 @@ __version__ = "0.6.1.lucidgan"
 
 from ctgan.synthesizers.ctgan import CTGAN
 
-__all__ = ("CTGAN")
+__all__ = "CTGAN"
