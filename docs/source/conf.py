@@ -11,17 +11,18 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
+
+sys.path.insert(0, os.path.abspath("../.."))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'canonical sets'
-copyright = '2022, Integrated Intelligence Lab'
-author = 'Andres Algaba'
+project = "canonical sets"
+copyright = "2022, Integrated Intelligence Lab"
+author = "Andres Algaba"
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.0.1'
+release = "v0.0.1"
 
 
 # -- General configuration ---------------------------------------------------
@@ -30,14 +31,14 @@ release = 'v0.0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.napoleon',
-    'sphinx.ext.autodoc',  # Core Sphinx library for auto html doc generation from docstrings
-    'sphinx.ext.autosummary',  # Create neat summary tables for modules/classes/methods etc
-    'sphinx.ext.intersphinx',  # Link to other project's documentation (see mapping below)
-    'sphinx.ext.viewcode',  # Add a link to the Python source code for classes, functions etc.
-    'sphinx_autodoc_typehints',  # Automatically document param types (less noise in class signature)
-    'nbsphinx',
-    'nbsphinx_link',
+    "sphinx.ext.napoleon",
+    "sphinx.ext.autodoc",  # Core Sphinx library for auto html doc generation from docstrings
+    "sphinx.ext.autosummary",  # Create neat summary tables for modules/classes/methods etc
+    "sphinx.ext.intersphinx",  # Link to other project's documentation (see mapping below)
+    "sphinx.ext.viewcode",  # Add a link to the Python source code for classes, functions etc.
+    "sphinx_autodoc_typehints",  # Automatically document param types (less noise in class signature)
+    "nbsphinx",
+    "nbsphinx_link",
 ]
 
 # Mappings for sphinx.ext.intersphinx. Projects have to have Sphinx-generated doc! (.inv file)
@@ -47,15 +48,19 @@ intersphinx_mapping = {
 
 autosummary_generate = True
 autoclass_content = "both"  # Add __init__ doc (ie. params) to class summaries
-html_show_sourcelink = False  # Remove 'view source code' from top of page (for html, not python)
+html_show_sourcelink = (
+    False  # Remove 'view source code' from top of page (for html, not python)
+)
 autodoc_inherit_docstrings = True  # If no docstring, inherit from base class
-set_type_checking_flag = True  # Enable 'expensive' imports for sphinx_autodoc_typehints
+set_type_checking_flag = (
+    True  # Enable 'expensive' imports for sphinx_autodoc_typehints
+)
 nbsphinx_allow_errors = True  # Continue through Jupyter errors
-#autodoc_typehints = "description" # Sphinx-native method. Not as good as sphinx_autodoc_typehints
+# autodoc_typehints = "description" # Sphinx-native method. Not as good as sphinx_autodoc_typehints
 add_module_names = False  # Remove namespaces from class/method signatures
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -68,7 +73,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
