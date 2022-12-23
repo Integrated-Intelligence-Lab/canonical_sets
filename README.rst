@@ -59,6 +59,13 @@ Install ``canonical_sets`` from PyPi.
 
 For development install, see `contribute`_. You can also check the `documentation`_.
 
+Installation on the Mac M-chips is currently supported via the following command:
+
+.. code-block:: bash
+
+    pip install git+https://github.com/Integrated-Intelligence-Lab/canonical_sets
+
+and will be included in the next release.
 
 Usage
 -----
