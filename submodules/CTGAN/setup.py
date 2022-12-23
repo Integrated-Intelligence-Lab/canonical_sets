@@ -97,7 +97,7 @@ setup(
     keywords="ctgan CTGAN",
     name="ctgan",
     packages=find_packages(include=["ctgan", "ctgan.*"]),
-    python_requires=">=3.6,<3.10",
+    python_requires=">=3.6",
     setup_requires=setup_requires,
     test_suite="tests",
     tests_require=tests_require,
