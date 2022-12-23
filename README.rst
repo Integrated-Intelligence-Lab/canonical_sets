@@ -1,6 +1,6 @@
 .. |nbsp| unicode:: U+00A0 .. NO-BREAK SPACE
 
-.. |pic1| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9-blue
+.. |pic1| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue
 .. |pic2| image:: https://img.shields.io/github/license/mashape/apistatus.svg
 .. |pic3| image:: https://img.shields.io/badge/code%20style-black-000000.svg
 .. |pic4| image:: https://img.shields.io/badge/%20type_checker-mypy-%231674b1?style=flat
