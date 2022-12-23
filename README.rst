@@ -1,6 +1,6 @@
 .. |nbsp| unicode:: U+00A0 .. NO-BREAK SPACE
 
-.. |pic1| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9-blue
+.. |pic1| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue
 .. |pic2| image:: https://img.shields.io/github/license/mashape/apistatus.svg
 .. |pic3| image:: https://img.shields.io/badge/code%20style-black-000000.svg
 .. |pic4| image:: https://img.shields.io/badge/%20type_checker-mypy-%231674b1?style=flat
@@ -13,7 +13,7 @@
 .. _examples: https://github.com/Integrated-Intelligence-Lab/canonical_sets/tree/main/examples
 .. _contribute: https://github.com/Integrated-Intelligence-Lab/canonical_sets/blob/main/CONTRIBUTING.rst
 .. _documentation: https://canonical-sets.readthedocs.io/en/latest/
-.. _LUCID: https://responsibledecisionmaking.github.io/assets/pdf/papers/21.pdf
+.. _LUCID: https://arxiv.org/abs/2208.12786
 .. _LUCID-GAN: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4289597
 
 .. _Twitter: https://twitter.com/DataLabBE
@@ -75,7 +75,17 @@ applications by using its default settings:
 
 .. code-block:: python
 
+    import pandas as pd
+
+    from canonical_sets.data import Adult
+    from canonical_sets.models import ClassifierTF
     from canonical_sets import LUCID
+
+    adult = Adult()
+
+    model = ClassifierTF(2)
+    outputs = pd.DataFrame([[0, 1]], columns=["<=50K", ">50K"])
+    example_data = adult.train_data
 
     lucid = LUCID(model, outputs, example_data)
     lucid.results.head()
@@ -92,10 +102,24 @@ for a wide range of applications by using its default settings:
 
 .. code-block:: python
 
+    import pandas as pd
+
+    from canonical_sets.data import Adult
+    from canonical_sets.models import ClassifierTF
     from canonical_sets import LUCIDGAN
+
+    model = ClassifierTF(2)
+    adult = Adult()
+
+    # we need original data as LUCIDGAN does some preprocessing
+    data = adult.inverse_preprocess(adult.test_data) 
+
+    # we only require the predictions for the positive class
+    predictions = model.predict(adult.test_data.to_numpy())[:, 1]
 
     lucidgan = LUCIDGAN()
     lucidgan.fit(data, predictions)
+
     samples = lucidgan.sample(100)
     samples.head()
 
