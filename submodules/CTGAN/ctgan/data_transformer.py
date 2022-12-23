@@ -52,7 +52,8 @@ class DataTransformer(object):
         """
         column_name = data.columns[0]
         gm = ClusterBasedNormalizer(
-            model_missing_values=True, max_clusters=min(len(data), 10)
+            model_missing_values=True,
+            max_clusters=min(len(data), self._max_clusters),
         )
         gm.fit(data, column_name)
         num_components = sum(gm.valid_component_indicator)
@@ -217,7 +218,7 @@ class DataTransformer(object):
         data = pd.DataFrame(
             column_data[:, :2], columns=list(gm.get_output_sdtypes())
         )
-        data.iloc[:, 1] = np.argmax(column_data[:, 1:], axis=1)
+        data[data.columns[1]] = np.argmax(column_data[:, 1:], axis=1)
         if sigmas is not None:
             selected_normalized_value = np.random.normal(
                 data.iloc[:, 0], sigmas[st]
