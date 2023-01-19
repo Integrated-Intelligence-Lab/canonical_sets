@@ -111,7 +111,7 @@ for a wide range of applications by using its default settings:
     model = ClassifierTF(2)
     adult = Adult()
 
-    # we need original data as LUCIDGAN does some preprocessing
+    # we need original data as LUCID-GAN does some preprocessing
     data = adult.inverse_preprocess(adult.test_data) 
 
     # we only require the predictions for the positive class
@@ -181,9 +181,6 @@ Disclaimer
 The package and the code is provided "as-is" and there is NO WARRANTY of any kind. 
 Use it only if the content and output files make sense to you.
 
-Currently some dependencies of the package do not support the Apple M1 and M2 chips.
-We will offer support asap.
-
 
 Acknowledgements
 ----------------
@@ -191,8 +188,9 @@ Acknowledgements
 This project benefited from financial support from Innoviris.
 
 ``LUCIDGAN`` is based on the ``CTGAN`` class from the `ctgan`_ package. It has been extended to fix
-several bugs (see my `PR`_s on the `CTGAN`_ GitHub page) and to allow for the extension of the conditional
-vector. Note that a part of the code and comments is identical to the original ``CTGAN`` class.
+several bugs (see my `PR`_ on the `CTGAN`_ GitHub page) and to allow for the extension of the conditional
+vector. It is included as a submodule, and a part of the code and comments is identical to the
+original ``CTGAN`` class.
 
 
 Citation
