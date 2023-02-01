@@ -125,8 +125,8 @@ for a wide range of applications by using its default settings:
 
 For detailed examples see `examples`_ and for the source code see `canonical_sets`_. For ``LUCID``, we advice to start with either the
 ``tensorflow`` or ``pytorch`` example, and then the advanced example. For ``LUCIDGAN``, you can replicate the experiments from the paper
-with the ``GAN_adult`` and ``GAN_compas`` examples. Note that the results might slightly differ due to the randomness in generating the
-samples. You can also check the `documentation`_ for more details. If you have any remaining questions, feel free to submit an issue or PR!
+with the ``GAN_adult`` and ``GAN_compas`` examples. You can also check the `documentation`_ for more details.
+If you have any remaining questions, feel free to submit an issue or PR!
 
 
 Output-based group metrics
