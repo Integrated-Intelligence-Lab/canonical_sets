@@ -189,8 +189,7 @@ This project benefited from financial support from Innoviris.
 
 ``LUCIDGAN`` is based on the ``CTGAN`` class from the `ctgan`_ package. It has been extended to fix
 several bugs (see my `PR`_ on the `CTGAN`_ GitHub page) and to allow for the extension of the conditional
-vector. It is included as a submodule, and a part of the code and comments is identical to the
-original ``CTGAN`` class.
+vector. A part of the code and comments is identical to the original ``CTGAN`` class.
 
 
 Citation

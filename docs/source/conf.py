@@ -22,7 +22,7 @@ copyright = "2022, Integrated Intelligence Lab"
 author = "Andres Algaba"
 
 # The full version, including alpha/beta/rc tags
-release = "v0.0.1"
+release = "v0.0.3"
 
 
 # -- General configuration ---------------------------------------------------

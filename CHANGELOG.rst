@@ -11,13 +11,12 @@ Changelog <http://keepachangelog.com/en/1.0.0/>`__.
 --------------------
 
 
-[0.0.3] - 2023-01-19
+[0.0.3] - 2023-02-01
 --------------------
 
 ### Added
 
 - Dependencies for Mac.
-- CTGAN as a submodule for stability in dependencies.
 
 
 [0.0.2] - 2022-12-09

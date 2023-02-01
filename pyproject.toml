@@ -47,7 +47,7 @@ tensorflow = [
 tensorflow-macos = {version = ">=2.9.1, <2.11", markers = "sys_platform == 'darwin' and platform_machine == 'arm64'"}
 scikit-learn = ">=1.1.1"
 tqdm = ">=4.64.0"
-ctgan = { path = "./submodules/CTGAN", develop = true }
+ctgan = ">=0.7.0"
 scipy = ">=1.9.0"
 
 [tool.poetry.dev-dependencies]
@@ -77,12 +77,12 @@ extend-exclude = '''
 py_version=39
 line_length = 79
 profile = "black"
-extend_skip_glob = ["docs/*", "submodules/*"]
+extend_skip_glob = ["docs/*"]
 
 [tool.mypy]
 python_version = "3.9"
 ignore_missing_imports = true
-exclude = ["docs", "submodules"]
+exclude = "docs"
 
 [tool.pytest.ini_options]
 testpaths = "tests"
