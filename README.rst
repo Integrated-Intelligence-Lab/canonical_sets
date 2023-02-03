@@ -1,6 +1,6 @@
 .. |nbsp| unicode:: U+00A0 .. NO-BREAK SPACE
 
-.. |pic1| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9-blue
+.. |pic1| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue
 .. |pic2| image:: https://img.shields.io/github/license/mashape/apistatus.svg
 .. |pic3| image:: https://img.shields.io/badge/code%20style-black-000000.svg
 .. |pic4| image:: https://img.shields.io/badge/%20type_checker-mypy-%231674b1?style=flat
@@ -13,7 +13,7 @@
 .. _examples: https://github.com/Integrated-Intelligence-Lab/canonical_sets/tree/main/examples
 .. _contribute: https://github.com/Integrated-Intelligence-Lab/canonical_sets/blob/main/CONTRIBUTING.rst
 .. _documentation: https://canonical-sets.readthedocs.io/en/latest/
-.. _LUCID: https://responsibledecisionmaking.github.io/assets/pdf/papers/21.pdf
+.. _LUCID: https://arxiv.org/abs/2208.12786
 .. _LUCID-GAN: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4289597
 
 .. _Twitter: https://twitter.com/DataLabBE
@@ -75,7 +75,17 @@ applications by using its default settings:
 
 .. code-block:: python
 
+    import pandas as pd
+
+    from canonical_sets.data import Adult
+    from canonical_sets.models import ClassifierTF
     from canonical_sets import LUCID
+
+    adult = Adult()
+
+    model = ClassifierTF(2)
+    outputs = pd.DataFrame([[0, 1]], columns=["<=50K", ">50K"])
+    example_data = adult.train_data
 
     lucid = LUCID(model, outputs, example_data)
     lucid.results.head()
@@ -92,17 +102,33 @@ for a wide range of applications by using its default settings:
 
 .. code-block:: python
 
+    import pandas as pd
+
+    from canonical_sets.data import Adult
+    from canonical_sets.models import ClassifierTF
     from canonical_sets import LUCIDGAN
 
-    lucidgan = LUCIDGAN()
-    lucidgan.fit(data, predictions)
-    samples = lucidgan.sample(100)
+    model = ClassifierTF(2)
+    adult = Adult()
+
+    # we need original data as LUCID-GAN does some preprocessing
+    test_data = adult.inverse_preprocess(adult.test_data) 
+
+    # we only require the predictions for the positive class
+    preds = model.predict(adult.test_data.to_numpy())[:, 1]
+
+    data = pd.concat([test_data, pd.DataFrame(preds, columns=["preds"])], axis=1)
+
+    lucidgan = LUCIDGAN(epochs=5)
+    lucidgan.fit(data, conditional=["preds"])
+
+    samples = lucidgan.sample(100, conditional=pd.DataFrame({"preds": [1]}))
     samples.head()
 
 For detailed examples see `examples`_ and for the source code see `canonical_sets`_. For ``LUCID``, we advice to start with either the
 ``tensorflow`` or ``pytorch`` example, and then the advanced example. For ``LUCIDGAN``, you can replicate the experiments from the paper
-with the ``GAN_adult`` and ``GAN_compas`` examples. Note that the results might slightly differ due to the randomness in generating the
-samples. You can also check the `documentation`_ for more details. If you have any remaining questions, feel free to submit an issue or PR!
+with the ``GAN_adult`` and ``GAN_compas`` examples. You can also check the `documentation`_ for more details.
+If you have any remaining questions, feel free to submit an issue or PR!
 
 
 Output-based group metrics
@@ -116,7 +142,15 @@ The ``Metrics`` class allows you to compute these metrics for binary classificat
 
 .. code-block:: python
 
+    from canonical_sets.data import Adult
+    from canonical_sets.models import ClassifierTF
     from canonical_sets.group import Metrics
+
+    model = ClassifierTF(2)
+    adult = Adult()
+
+    preds = model.predict(adult.test_data.to_numpy()).argmax(axis=1)
+    targets = adult.test_labels[">50K"]
 
     metrics = Metrics(preds, targets)
     metrics.metrics
@@ -157,9 +191,6 @@ Disclaimer
 The package and the code is provided "as-is" and there is NO WARRANTY of any kind. 
 Use it only if the content and output files make sense to you.
 
-Currently some dependencies of the package do not support the Apple M1 and M2 chips.
-We will offer support asap.
-
 
 Acknowledgements
 ----------------
@@ -167,8 +198,8 @@ Acknowledgements
 This project benefited from financial support from Innoviris.
 
 ``LUCIDGAN`` is based on the ``CTGAN`` class from the `ctgan`_ package. It has been extended to fix
-several bugs (see my `PR`_s on the `CTGAN`_ GitHub page) and to allow for the extension of the conditional
-vector. Note that a part of the code and comments is identical to the original ``CTGAN`` class.
+several bugs (see my `PR`_ on the `CTGAN`_ GitHub page) and to allow for the extension of the conditional
+vector. A part of the code and comments is identical to the original ``CTGAN`` class.
 
 
 Citation

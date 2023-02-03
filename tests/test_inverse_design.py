@@ -10,7 +10,6 @@ from canonical_sets.models import ClassifierPT, ClassifierTF
 
 
 def test_inverse_design_error():
-
     with pytest.raises(
         ValueError,
         match="model must be a torch.nn.Module or \\(tf.\\)keras.Model.",

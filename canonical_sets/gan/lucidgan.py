@@ -219,10 +219,8 @@ class LUCIDGAN(CTGAN):
         with tqdm.trange(self._epochs) as epochs_bar:
             for i in epochs_bar:
                 for id_ in range(steps_per_epoch):
-
                     # discriminator training loop
                     for n in range(self._discriminator_steps):
-
                         # generate noise for fake data
                         fakez = torch.normal(mean=mean, std=std)
 
@@ -233,7 +231,6 @@ class LUCIDGAN(CTGAN):
 
                         # if condvec is None, set all of its elements to None
                         if condvec is None:
-
                             # if conditions are not provided, sample both
                             # real data and conditions and create a random
                             # permutation of the conditions for the fake
@@ -464,7 +461,6 @@ class LUCIDGAN(CTGAN):
         self._generator.eval()
 
         if condition_column is not None and condition_value is not None:
-
             if isinstance(condition_column, str) and isinstance(
                 condition_value, str
             ):
@@ -535,7 +531,6 @@ class LUCIDGAN(CTGAN):
 
             else:
                 if conditional is not None and self._conditions is not None:
-
                     if empirical:
                         (
                             condvec,
@@ -556,7 +551,6 @@ class LUCIDGAN(CTGAN):
                     conditions = conditional
 
                 elif conditional is None and self._conditions is not None:
-
                     if empirical:
                         (
                             condvec,

@@ -6,7 +6,6 @@ from canonical_sets.data.base import BaseData
 
 
 def test_prop_fail():
-
     with pytest.raises(
         ValueError, match="Proportions must be between \\[0, 1\\)."
     ):
