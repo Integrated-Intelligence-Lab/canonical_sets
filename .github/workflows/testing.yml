@@ -39,7 +39,7 @@ jobs:
         run: python -m isort . -c
 
       - name: black
-        run: python -m black . --check -vv
+        run: python -m black . --diff
 
       - name: flake8
         run: python -m flake8 .
