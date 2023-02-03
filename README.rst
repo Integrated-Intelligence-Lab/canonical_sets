@@ -112,15 +112,17 @@ for a wide range of applications by using its default settings:
     adult = Adult()
 
     # we need original data as LUCID-GAN does some preprocessing
-    data = adult.inverse_preprocess(adult.test_data) 
+    test_data = adult.inverse_preprocess(adult.test_data) 
 
     # we only require the predictions for the positive class
-    predictions = model.predict(adult.test_data.to_numpy())[:, 1]
+    preds = model.predict(adult.test_data.to_numpy())[:, 1]
 
-    lucidgan = LUCIDGAN()
-    lucidgan.fit(data, predictions)
+    data = pd.concat([test_data, pd.DataFrame(preds, columns=["preds"])], axis=1)
 
-    samples = lucidgan.sample(100)
+    lucidgan = LUCIDGAN(epochs=5)
+    lucidgan.fit(data, conditional=["preds"])
+
+    samples = lucidgan.sample(100, conditional=pd.DataFrame({"preds": [1]}))
     samples.head()
 
 For detailed examples see `examples`_ and for the source code see `canonical_sets`_. For ``LUCID``, we advice to start with either the
@@ -140,7 +142,15 @@ The ``Metrics`` class allows you to compute these metrics for binary classificat
 
 .. code-block:: python
 
+    from canonical_sets.data import Adult
+    from canonical_sets.models import ClassifierTF
     from canonical_sets.group import Metrics
+
+    model = ClassifierTF(2)
+    adult = Adult()
+
+    preds = model.predict(adult.test_data.to_numpy()).argmax(axis=1)
+    targets = adult.test_labels[">50K"]
 
     metrics = Metrics(preds, targets)
     metrics.metrics
