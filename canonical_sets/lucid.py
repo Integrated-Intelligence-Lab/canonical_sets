@@ -477,7 +477,6 @@ class LUCID:
         categories = self.categories.copy()
 
         for col in self._input_columns:
-
             if col in self.numerical_cols:
                 _results[col] = data[col]
 
