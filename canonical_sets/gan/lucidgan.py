@@ -84,7 +84,7 @@ class LUCIDGAN(CTGAN):
         ----------
         generator_loss : list of torch.Tensor
             Generator loss at each epoch.
-        reconsutrction_loss : list of torch.Tensor
+        reconstruction_loss : list of torch.Tensor
             Reconstruction loss at each epoch.
         discriminator_loss : list of torch.Tensor
             Discriminator loss at each epoch.
@@ -142,6 +142,16 @@ class LUCIDGAN(CTGAN):
         if conditional is not None:
             self._n_conditions = len(conditional)
             self._conditions = train_data[conditional].to_numpy()
+
+            #Adjustment: Check if really numeric
+            test_numeric = pd.DataFrame(self._conditions)
+            if not all(
+                test_numeric.apply(
+                    lambda s: pd.to_numeric(s, errors="coerce").notnull().all()
+                )
+            ):
+                raise ValueError("The conditional data must be numeric.")
+            
             self._conditions_columns = conditional
 
             train_data = train_data.drop(conditional, axis=1)
@@ -410,6 +420,9 @@ class LUCIDGAN(CTGAN):
                     f"Loss D: {loss_d.detach().cpu(): .4f}"
                 )
 
+                #Proposal: why here the sum of generator loss and above Loss G and Loss R seperate??
+                #Better the same!! #
+
                 self.generator_loss.append(loss_g.detach().cpu())
                 self.reconstruction_loss.append(cross_entropy.detach().cpu())
                 self.discriminator_loss.append(loss_d.detach().cpu())
@@ -528,6 +541,9 @@ class LUCIDGAN(CTGAN):
                     conditions = self._conditions[
                         np.random.randint(cond_len, size=self._batch_size)
                     ]
+                    #adjustment: to torch!
+                    conditions = torch.from_numpy(conditions)
+
 
             else:
                 if conditional is not None and self._conditions is not None:
@@ -625,7 +641,7 @@ class LUCIDGAN(CTGAN):
     def _convert_column_name_value_to_id(
         self, column_names: List[str], values: List[str]
     ) -> List[Dict[str, int]]:
-        """Get the ids of the given `column_name`.
+        """Get the ids of the given `column_names`.
 
         Parameters
         ----------
