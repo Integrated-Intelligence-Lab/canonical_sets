@@ -143,7 +143,7 @@ class LUCIDGAN(CTGAN):
             self._n_conditions = len(conditional)
             self._conditions = train_data[conditional].to_numpy()
 
-            #Adjustment: Check if really numeric
+            # Adjustment: Check if really numeric
             test_numeric = pd.DataFrame(self._conditions)
             if not all(
                 test_numeric.apply(
@@ -151,7 +151,7 @@ class LUCIDGAN(CTGAN):
                 )
             ):
                 raise ValueError("The conditional data must be numeric.")
-            
+
             self._conditions_columns = conditional
 
             train_data = train_data.drop(conditional, axis=1)
@@ -420,8 +420,9 @@ class LUCIDGAN(CTGAN):
                     f"Loss D: {loss_d.detach().cpu(): .4f}"
                 )
 
-                #Proposal: why here the sum of generator loss and above Loss G and Loss R seperate??
-                #Better the same!! #
+                # Proposal: why here the sum of generator loss
+                # and above Loss G and Loss R seperate??
+                # Better the same!! #
 
                 self.generator_loss.append(loss_g.detach().cpu())
                 self.reconstruction_loss.append(cross_entropy.detach().cpu())
@@ -483,11 +484,13 @@ class LUCIDGAN(CTGAN):
             condition_info = self._convert_column_name_value_to_id(
                 condition_column, condition_value  # type: ignore
             )
+
             global_condition_vec = (
                 self._data_sampler.generate_cond_from_condition_column_info(
                     condition_info, self._batch_size
                 )
             )
+
         else:
             global_condition_vec = None
 
@@ -541,9 +544,8 @@ class LUCIDGAN(CTGAN):
                     conditions = self._conditions[
                         np.random.randint(cond_len, size=self._batch_size)
                     ]
-                    #adjustment: to torch!
+                    # adjustment: to torch!
                     conditions = torch.from_numpy(conditions)
-
 
             else:
                 if conditional is not None and self._conditions is not None:
@@ -553,7 +555,7 @@ class LUCIDGAN(CTGAN):
                             _,
                         ) = self._data_sampler.sample_original_condvec(
                             self._batch_size
-                        )
+                        )  # type: ignore
 
                     else:
                         condvec = np.zeros(
@@ -573,7 +575,7 @@ class LUCIDGAN(CTGAN):
                             conditions,
                         ) = self._data_sampler.sample_original_condvec(
                             self._batch_size
-                        )
+                        )  # type: ignore
 
                     else:
                         (
@@ -581,7 +583,7 @@ class LUCIDGAN(CTGAN):
                             conditions,
                         ) = self._data_sampler.sample_original_condvec(
                             self._batch_size
-                        )
+                        )  # type: ignore
                         condvec = np.zeros(
                             (
                                 self._batch_size,

@@ -3,7 +3,7 @@ source = canonical_sets
 .PHONY: clean format check test install docs
 
 clean:
-	rm -rf */__pycache__/
+	find . -type d -name '__pycache__' -exec rm -rf {} +
 	rm -rf .pytest_cache
 	rm -rf .mypy_cache
 	rm -rf .coverage

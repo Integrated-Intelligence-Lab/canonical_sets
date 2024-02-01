@@ -218,7 +218,7 @@ class Adult(BaseData):
         df = pd.concat([train_data, test_data])
 
         # get labels, drop target (erase unnecessary "." in test data)
-        #Adjustment: No regex=True in 'replace()' !!!
+        # Adjustment: No regex=True in 'replace()' !!!
         df["Target"] = df["Target"].str.replace(r".", "")
 
         labels = pd.get_dummies(df["Target"])

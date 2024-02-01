@@ -138,8 +138,9 @@ class _Sampler(DataSampler):
 
     def sample_original_condvec(
         self, batch: int
-    ) -> Union[np.ndarray, Tuple[np.ndarray, torch.Tensor]]:
-        """Generate the conditional vector using the original frequency.
+    ) -> Union[np.ndarray, Tuple[np.ndarray, torch.Tensor], None]:
+        """Generate the conditional vector using the original frequency,
+        or returning None if no conditions.
 
         Parameters
         ----------
@@ -148,12 +149,16 @@ class _Sampler(DataSampler):
 
         Returns
         -------
-        np.ndarray, torch.Tensor, optional
-            The conditional vector and (optionally) extra conditions.
+        np.ndarray, torch.Tensor, optional, or only None
+            The conditional vector, with optional extra conditions,
+            or None if no conditions apply.
         """
-        #Adjustment: Otherwise not possible to return None if no categorical variables or conditions!!!
+        # Adjustment: Otherwise not possible to return None
+        # if no categorical variables or conditions!!!
+        # This code is from the original CTGAN package
         if self._n_discrete_columns == 0:
             return None
+        ##############
 
         cond = np.zeros((batch, self._n_categories), dtype="float32")
 
@@ -177,7 +182,10 @@ class _Sampler(DataSampler):
             return cond
 
     def sample_data(
-        self, n: int, col: Optional[np.ndarray] = None, opt: Optional[np.ndarray] = None
+        self,
+        n: int,
+        col: Optional[np.ndarray] = None,
+        opt: Optional[np.ndarray] = None,
     ) -> Union[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]:
         """Sample data from original training data for the conditional vector.
 
@@ -196,7 +204,8 @@ class _Sampler(DataSampler):
             The conditional vector and (optionally) extra conditions.
         """
 
-        #adjustment: col and opt are no integers! They are np.ndarrays!!! (they can be integers but not in this workflow)
+        # adjustment: col and opt are no integers! They are np.ndarrays!!!
+        # (they can be integers but not in this workflow)
         if col is None and opt is None:
             idx = np.random.randint(len(self._data), size=n)
 
