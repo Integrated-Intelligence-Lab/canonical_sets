@@ -1,4 +1,5 @@
 """Sampler."""
+
 from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -84,7 +85,7 @@ class _Sampler(DataSampler):
                 st += sum([span_info.dim for span_info in column_info])
         assert st == data.shape[1]
 
-        # Prepare an interval matrix for efficiently sample conditional vector
+        # Prepare an interval matrix to efficiently sample conditional vector
         max_category = max(
             [
                 column_info[0].dim
@@ -138,8 +139,9 @@ class _Sampler(DataSampler):
 
     def sample_original_condvec(
         self, batch: int
-    ) -> Union[np.ndarray, Tuple[np.ndarray, torch.Tensor]]:
-        """Generate the conditional vector using the original frequency.
+    ) -> Union[np.ndarray, Tuple[np.ndarray, torch.Tensor], None]:
+        """Generate the conditional vector using the original frequency,
+        or returning None if no conditions.
 
         Parameters
         ----------
@@ -148,9 +150,17 @@ class _Sampler(DataSampler):
 
         Returns
         -------
-        np.ndarray, torch.Tensor, optional
-            The conditional vector and (optionally) extra conditions.
+        np.ndarray, torch.Tensor, optional, or only None
+            The conditional vector, with optional extra conditions,
+            or None if no conditions apply.
         """
+        # Adjustment: Otherwise not possible to return None
+        # if no categorical variables or conditions!!!
+        # This code is from the original CTGAN package
+        if self._n_discrete_columns == 0:
+            return None
+        ##############
+
         cond = np.zeros((batch, self._n_categories), dtype="float32")
 
         if self._conditions is not None:
@@ -173,7 +183,10 @@ class _Sampler(DataSampler):
             return cond
 
     def sample_data(
-        self, n: int, col: Optional[int] = None, opt: Optional[int] = None
+        self,
+        n: int,
+        col: Optional[np.ndarray] = None,
+        opt: Optional[np.ndarray] = None,
     ) -> Union[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]:
         """Sample data from original training data for the conditional vector.
 
@@ -181,9 +194,9 @@ class _Sampler(DataSampler):
         ----------
         n : int
             The number of samples.
-        col : int, optional
+        col : np.ndarray, optional
             The column to be sampled.
-        opt : int, optional
+        opt : np.ndarray, optional
             The category to be sampled.
 
         Returns
@@ -191,6 +204,9 @@ class _Sampler(DataSampler):
         torch.Tensor
             The conditional vector and (optionally) extra conditions.
         """
+
+        # adjustment: col and opt are no integers! They are np.ndarrays!!!
+        # (they can be integers but not in this workflow)
         if col is None and opt is None:
             idx = np.random.randint(len(self._data), size=n)
 

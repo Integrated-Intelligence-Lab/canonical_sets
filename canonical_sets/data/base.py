@@ -85,10 +85,10 @@ class BaseData:
         Raises
         ------
         ValueError
-            Proportions must be between [0, 1).
+            Proportions must be between [0, 1].
         """
         if val_prop >= 1 or test_prop >= 1 or val_prop < 0 or test_prop < 0:
-            raise ValueError("Proportions must be between [0, 1).")
+            raise ValueError("Proportions must be between [0, 1].")
 
         self.features = features
         self.groups = groups
@@ -283,7 +283,8 @@ class BaseData:
         undummified_df: pd.DataFrame
             The inverse one-hot encoded data.
         """
-        df = data.select_dtypes(include="uint8")
+        # Adjustment: include='uint8' -> exclude="number" #
+        df = data.select_dtypes(exclude="number")
 
         if df.empty or self.categorical_cols is None:
             return pd.DataFrame(index=data.index)
